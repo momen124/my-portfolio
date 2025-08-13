@@ -5,44 +5,158 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
+  /* Background & Surface Colors */
   --background: 0 0% 100%;
   --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
   --card-foreground: 222.2 84% 4.9%;
   --popover: 0 0% 100%;
   --popover-foreground: 222.2 84% 4.9%;
+  
+  /* Primary Color Palette - Blue */
   --primary: 215.4 91.4% 60.4%;
   --primary-foreground: 0 0% 100%;
+  --primary-50: 239 100% 97%;
+  --primary-100: 226 100% 94%;
+  --primary-200: 214 95% 93%;
+  --primary-300: 204 94% 84%;
+  --primary-400: 199 89% 69%;
+  --primary-500: 215.4 91.4% 60.4%;
+  --primary-600: 221 83% 53%;
+  --primary-700: 224 76% 48%;
+  --primary-800: 226 71% 40%;
+  --primary-900: 224 64% 33%;
+  --primary-950: 226 56% 20%;
+  
+  /* Secondary Color Palette - Green */
   --secondary: 142.1 76.2% 45.3%;
   --secondary-foreground: 0 0% 100%;
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
+  --secondary-50: 138 76% 97%;
+  --secondary-100: 140 84% 92%;
+  --secondary-200: 141 78% 85%;
+  --secondary-300: 141 76% 73%;
+  --secondary-400: 141 69% 58%;
+  --secondary-500: 142.1 76.2% 45.3%;
+  --secondary-600: 142 72% 29%;
+  --secondary-700: 142 69% 24%;
+  --secondary-800: 143 64% 20%;
+  --secondary-900: 144 61% 16%;
+  --secondary-950: 146 80% 9%;
+  
+  /* Accent Color Palette - Amber */
   --accent: 37.7 92.1% 50.2%;
   --accent-foreground: 0 0% 100%;
+  --accent-50: 48 100% 96%;
+  --accent-100: 48 96% 89%;
+  --accent-200: 48 97% 77%;
+  --accent-300: 46 97% 65%;
+  --accent-400: 43 96% 56%;
+  --accent-500: 37.7 92.1% 50.2%;
+  --accent-600: 32 95% 44%;
+  --accent-700: 26 90% 37%;
+  --accent-800: 23 83% 31%;
+  --accent-900: 22 78% 26%;
+  --accent-950: 21 92% 14%;
+  
+  /* Destructive Color Palette - Red */
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
+  --destructive-50: 0 86% 97%;
+  --destructive-100: 0 93% 94%;
+  --destructive-200: 0 96% 89%;
+  --destructive-300: 0 94% 82%;
+  --destructive-400: 0 91% 71%;
+  --destructive-500: 0 84.2% 60.2%;
+  --destructive-600: 0 72% 51%;
+  --destructive-700: 0 74% 42%;
+  --destructive-800: 0 70% 35%;
+  --destructive-900: 0 63% 31%;
+  --destructive-950: 0 75% 15%;
+  
+  /* Muted Colors */
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  
+  /* Border & Input */
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
   --ring: 215.4 91.4% 60.4%;
 }
 
 .dark {
+  /* Background & Surface Colors */
   --background: 222.2 84% 4.9%;
   --foreground: 210 40% 98%;
-  --card: 222.2 84% 4.9%;
+  --card: 222.2 84% 6%;
   --card-foreground: 210 40% 98%;
-  --popover: 222.2 84% 4.9%;
+  --popover: 222.2 84% 6%;
   --popover-foreground: 210 40% 98%;
+  
+  /* Primary Color Palette - Blue (adjusted for dark mode) */
   --primary: 215.4 91.4% 60.4%;
-  --primary-foreground: 210 40% 98%;
+  --primary-foreground: 222.2 84% 4.9%;
+  --primary-50: 226 56% 20%;
+  --primary-100: 224 64% 33%;
+  --primary-200: 226 71% 40%;
+  --primary-300: 224 76% 48%;
+  --primary-400: 221 83% 53%;
+  --primary-500: 215.4 91.4% 60.4%;
+  --primary-600: 199 89% 69%;
+  --primary-700: 204 94% 84%;
+  --primary-800: 214 95% 93%;
+  --primary-900: 226 100% 94%;
+  --primary-950: 239 100% 97%;
+  
+  /* Secondary Color Palette - Green (adjusted for dark mode) */
   --secondary: 142.1 76.2% 45.3%;
-  --secondary-foreground: 210 40% 98%;
+  --secondary-foreground: 222.2 84% 4.9%;
+  --secondary-50: 146 80% 9%;
+  --secondary-100: 144 61% 16%;
+  --secondary-200: 143 64% 20%;
+  --secondary-300: 142 69% 24%;
+  --secondary-400: 142 72% 29%;
+  --secondary-500: 142.1 76.2% 45.3%;
+  --secondary-600: 141 69% 58%;
+  --secondary-700: 141 76% 73%;
+  --secondary-800: 141 78% 85%;
+  --secondary-900: 140 84% 92%;
+  --secondary-950: 138 76% 97%;
+  
+  /* Accent Color Palette - Amber (adjusted for dark mode) */
+  --accent: 37.7 92.1% 50.2%;
+  --accent-foreground: 222.2 84% 4.9%;
+  --accent-50: 21 92% 14%;
+  --accent-100: 22 78% 26%;
+  --accent-200: 23 83% 31%;
+  --accent-300: 26 90% 37%;
+  --accent-400: 32 95% 44%;
+  --accent-500: 37.7 92.1% 50.2%;
+  --accent-600: 43 96% 56%;
+  --accent-700: 46 97% 65%;
+  --accent-800: 48 97% 77%;
+  --accent-900: 48 96% 89%;
+  --accent-950: 48 100% 96%;
+  
+  /* Destructive Color Palette - Red (adjusted for dark mode) */
+  --destructive: 0 62.8% 50%;
+  --destructive-foreground: 210 40% 98%;
+  --destructive-50: 0 75% 15%;
+  --destructive-100: 0 63% 31%;
+  --destructive-200: 0 70% 35%;
+  --destructive-300: 0 74% 42%;
+  --destructive-400: 0 72% 51%;
+  --destructive-500: 0 62.8% 50%;
+  --destructive-600: 0 84.2% 60.2%;
+  --destructive-700: 0 91% 71%;
+  --destructive-800: 0 94% 82%;
+  --destructive-900: 0 96% 89%;
+  --destructive-950: 0 86% 97%;
+  
+  /* Muted Colors */
   --muted: 217.2 32.6% 17.5%;
   --muted-foreground: 215 20.2% 65.1%;
-  --accent: 37.7 92.1% 50.2%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 210 40% 98%;
+  
+  /* Border & Input */
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
   --ring: 215.4 91.4% 60.4%;
@@ -73,76 +187,139 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-200 dark:bg-gray-800; /* Switched to gray for standard Tailwind */
+  background: hsl(var(--muted));
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-400 dark:bg-gray-600 rounded-full;
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-500 dark:bg-gray-500;
+  background: hsl(var(--muted-foreground) / 0.5);
 }
 
 /* Focus styles for accessibility */
 .focus-visible:focus {
-  @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-neutral-900;
+  @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
 }
 
-/* Smooth transitions */
-.transition-all {
-  transition: all 0.3s ease;
-}
-
-/* Glass morphism effect */
-.glass {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.dark .glass {
-  background: rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Loading animation */
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* Custom gradient animations */
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.gradient-animation {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); /* Keeping custom gradient as is */
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-}
-
-/* Dark mode improvements */
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+/* Component styles */
+@layer components {
+  /* Generic gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary via-secondary to-accent text-transparent bg-clip-text;
+  }
+  
+  /* Modern card with proper dark mode support */
+  .modern-card {
+    @apply bg-card border border-border rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300;
+  }
+  
+  /* Animated background */
+  .animated-bg {
+    @apply bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5;
+  }
+  
+  /* Modern button */
+  .modern-btn {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 transition-colors rounded-lg font-medium;
+  }
+  
+  /* Glow effect */
+  .glow-effect {
+    @apply hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)] transition-shadow;
+  }
+  
+  /* Glass effect with proper dark mode support */
+  .glass-effect {
+    @apply bg-background/10 backdrop-blur-md border border-border/30 hover:bg-primary/10;
+  }
+  
+  /* Float animation */
+  .float-animation {
+    @apply animate-float;
+  }
+  
+  /* Scale hover */
+  .scale-hover {
+    @apply hover:scale-105 transition-transform duration-300;
+  }
+  
+  /* Grid pattern background */
+  .grid-pattern {
+    background-image: radial-gradient(circle, hsl(var(--foreground) / 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  
+  /* Fade in animation */
+  .fade-in {
+    @apply animate-fade-in;
+  }
+  
+  /* Enhanced card for project sections */
+  .project-card {
+    @apply bg-card border border-border rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden;
+  }
+  
+  /* Inner content card with rounded borders */
+  .inner-card {
+    @apply bg-muted/30 rounded-xl border border-border/50;
+  }
+  
+  /* Enhanced skill card with category-specific styling */
+  .skill-card {
+    @apply relative overflow-hidden bg-card border-2 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500;
+  }
+  
+  /* Skill badges with enhanced interactions */
+  .skill-badge {
+    @apply px-4 py-2 text-sm font-medium rounded-full cursor-pointer border-2 
+           hover:scale-105 hover:shadow-lg hover:-translate-y-1 
+           transition-all duration-300 ease-out transform;
+  }
+  
+  /* Animated gradient background for special sections */
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 8s ease infinite;
+  }
+  
+  /* Category-specific color classes */
+  .category-primary {
+    @apply border-primary/20 hover:border-primary/40;
+  }
+  
+  .category-secondary {
+    @apply border-secondary/20 hover:border-secondary/40;
+  }
+  
+  .category-accent {
+    @apply border-accent/20 hover:border-accent/40;
+  }
+  
+  .category-destructive {
+    @apply border-destructive/20 hover:border-destructive/40;
+  }
+  
+  /* Section background variations */
+  .section-bg-muted {
+    @apply bg-muted/30;
+  }
+  
+  .section-bg-accent {
+    @apply bg-accent/5;
   }
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  .text-gray-600 {
-    @apply text-neutral-900;
+  :root {
+    --muted-foreground: 215.4 16.3% 25%;
   }
-  .dark .text-gray-400 {
-    @apply text-neutral-100;
+  
+  .dark {
+    --muted-foreground: 215 20.2% 80%;
   }
 }
 
@@ -153,8 +330,16 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  
   html {
     scroll-behavior: auto;
+  }
+  
+  .float-animation,
+  .animate-float,
+  .animate-spin,
+  .animate-pulse {
+    animation: none !important;
   }
 }
 
@@ -163,40 +348,22 @@ body {
   .no-print {
     display: none !important;
   }
+  
   body {
     background: white !important;
     color: black !important;
   }
+  
+  .modern-card,
+  .project-card {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
 }
 
-/* Add missing classes */
-@layer components {
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary-500 to-secondary-500 text-transparent bg-clip-text;
-  }
-  .modern-card {
-    @apply bg-primary-50 dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300;
-  }
-  .animated-bg {
-    @apply bg-gradient-to-r from-primary-500/5 to-secondary-500/5 animate-gradient;
-  }
-  .modern-btn {
-    @apply bg-primary-500 text-primary-foreground hover:bg-primary-600 transition-colors;
-  }
-  .glow-effect {
-    @apply hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] transition-shadow; /* Matches primary-500 */
-  }
-  .glass-effect {
-    @apply bg-white/10 backdrop-blur-md border border-white/20 hover:bg-primary-500/10;
-  }
-  .float-animation {
-    @apply animate-float;
-  }
-  .scale-hover {
-    @apply hover:scale-105 transition-transform duration-300;
-  }
-  .grid-pattern {
-    background-image: radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px);
-    background-size: 20px 20px;
+/* Dark mode improvements */
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
   }
 }

@@ -83,44 +83,50 @@ const Projects = async () => {
     <section id="projects" className="py-20">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
+          <div className="text-center mb-16 fade-in">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 gradient-text">Featured Projects</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               A showcase of my technical expertise through real-world projects that demonstrate 
               backend development, cloud architecture, and full-stack capabilities.
             </p>
           </div>
+          
           <div className="space-y-12">
             {projects.map((project: Project, index: number) => (
-              <Card key={index} className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <Card key={index} className="project-card group">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
+                  {/* Main Content */}
                   <div className="lg:col-span-2 p-8">
                     <CardHeader className="p-0 mb-6">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                        <div className="p-3 bg-primary/10 rounded-xl text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
                           {iconMap[project.icon] || <Server className="w-6 h-6" />}
                         </div>
-                        <CardTitle className="text-2xl">{project.title}</CardTitle>
+                        <CardTitle className="text-2xl text-card-foreground group-hover:text-primary transition-colors duration-300">
+                          {project.title}
+                        </CardTitle>
                       </div>
-                      <CardDescription className="text-base leading-relaxed">
+                      <CardDescription className="text-base leading-relaxed text-muted-foreground">
                         {project.description}
                       </CardDescription>
                     </CardHeader>
-                    <CardContent className="p-0">
-                      <div className="mb-6">
+                    
+                    <CardContent className="p-0 space-y-6">
+                      <div>
                         <h4 className="font-semibold mb-3 text-sm uppercase tracking-wide text-muted-foreground">
                           Technologies Used
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {project.technologies.map((tech: string, techIndex: number) => (
-                            <Badge key={techIndex} variant="outline" className="text-xs">
+                            <Badge key={techIndex} className="skill-badge text-xs px-3 py-1">
                               {tech}
                             </Badge>
                           ))}
                         </div>
                       </div>
+                      
                       <div className="flex flex-wrap gap-3">
-                        <Button variant="default" size="sm" asChild>
+                        <Button variant="default" size="sm" className="modern-btn" asChild>
                           <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                             <Github className="w-4 h-4 mr-2" />
                             View Code
@@ -145,14 +151,16 @@ const Projects = async () => {
                       </div>
                     </CardContent>
                   </div>
-                  <div className="bg-muted/30 p-8 lg:border-l border-border">
+                  
+                  {/* Features Sidebar */}
+                  <div className="inner-card p-8 lg:border-l-0 border-t lg:border-t-0">
                     <h4 className="font-semibold mb-4 text-sm uppercase tracking-wide text-muted-foreground">
                       Key Features & Contributions
                     </h4>
                     <ul className="space-y-3">
                       {project.features.map((feature: string, featureIndex: number) => (
-                        <li key={featureIndex} className="flex items-start gap-2 text-sm">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                        <li key={featureIndex} className="flex items-start gap-3 text-sm">
+                          <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                           <span className="text-muted-foreground leading-relaxed">{feature}</span>
                         </li>
                       ))}
@@ -162,11 +170,12 @@ const Projects = async () => {
               </Card>
             ))}
           </div>
-          <div className="text-center mt-16">
+          
+          <div className="text-center mt-16 fade-in">
             <p className="text-muted-foreground mb-6">
               Want to see more of my work or discuss a potential collaboration?
             </p>
-            <Button size="lg" asChild>
+            <Button size="lg" className="modern-btn glow-effect" asChild>
               <a href="https://github.com/momen124" target="_blank" rel="noopener noreferrer">
                 <Github className="w-5 h-5 mr-2" />
                 View All Projects on GitHub
