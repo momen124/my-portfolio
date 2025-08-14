@@ -3,18 +3,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from './ui/badge';
 import { EducationCategory, EducationItem } from '../types/portfolio';
 
-const S3_EDUCATION_URL = 'https://portfolio-content-2025.s3.us-east-1.amazonaws.com/portfolio-content.json';
-
+const s3Url = process.env.NEXT_PUBLIC_S3_CONTENT_URL || 'https://portfolio-content-2025.s3.amazonaws.com/portfolio-content.json';
 const iconMap = {
   GraduationCap: <GraduationCap className="w-6 h-6" />,
   Cloud: <Cloud className="w-6 h-6" />,
-  BookOpen: <BookOpen className="w-6 h-6" />
+  BookOpen: <BookOpen className="w-6 h-6" />,
 };
 
 const Education = async () => {
   let educationCategories: EducationCategory[] = [];
   try {
-    const res = await fetch(S3_EDUCATION_URL, { cache: 'no-store' });
+    const res = await fetch(s3Url, { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       educationCategories = data.education || [];

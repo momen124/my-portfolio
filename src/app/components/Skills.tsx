@@ -3,26 +3,26 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { SkillCategory } from '../types/portfolio';
 import { Server, Cloud, Globe, Code } from 'lucide-react';
 
-const S3_SKILLS_URL = 'https://portfolio-content-2025.s3.us-east-1.amazonaws.com/portfolio-content.json';
+const s3Url = process.env.NEXT_PUBLIC_S3_CONTENT_URL || 'https://portfolio-content-2025.s3.amazonaws.com/portfolio-content.json';
 
-const categoryIcons = {
+const categoryIcons: { [key: string]: JSX.Element } = {
   "Backend Development": <Server className="w-5 h-5" />,
   "Cloud & DevOps": <Cloud className="w-5 h-5" />,
   "Full-stack / Frontend": <Globe className="w-5 h-5" />,
-  "Software Engineering Principles": <Code className="w-5 h-5" />
+  "Software Engineering Principles": <Code className="w-5 h-5" />,
 };
 
-const categoryColors = {
+const categoryColors: { [key: string]: string } = {
   "Backend Development": "primary",
   "Cloud & DevOps": "secondary", 
   "Full-stack / Frontend": "accent",
-  "Software Engineering Principles": "destructive"
+  "Software Engineering Principles": "destructive",
 };
 
 const Skills = async () => {
   let skillCategories: SkillCategory[] = [];
   try {
-    const res = await fetch(S3_SKILLS_URL, { cache: 'no-store' });
+    const res = await fetch(s3Url, { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       skillCategories = data.skills || [];
@@ -68,7 +68,7 @@ const Skills = async () => {
   const getColorClasses = (categoryTitle: string, colorType: string) => {
     const color = categoryColors[categoryTitle] || "primary";
     
-    const colorMap = {
+    const colorMap: { [key: string]: { [key: string]: string } } = {
       primary: {
         bg: "bg-primary",
         bgLight: "bg-primary/10",

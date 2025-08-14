@@ -1,12 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { BlogPost } from '../types/portfolio';
 
-const S3_BLOG_URL = 'https://portfolio-content-2025.s3.us-east-1.amazonaws.com/portfolio-content.json';
+const s3Url = process.env.NEXT_PUBLIC_S3_CONTENT_URL
 
 const BlogStub = async () => {
   let mockPosts: BlogPost[] = [];
   try {
-    const res = await fetch(S3_BLOG_URL, { cache: 'no-store' });
+    const res = await fetch(s3Url, { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       mockPosts = data.blog || [];

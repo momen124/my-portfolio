@@ -1,21 +1,41 @@
-import { ExternalLink, Github, Server, Globe, Shield } from 'lucide-react';
+import { ExternalLink, Github, Server, Globe, Shield, Star, Calendar, Code2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Project } from '../types/portfolio';
 
-const S3_PROJECTS_URL = 'https://portfolio-content-2025.s3.us-east-1.amazonaws.com/portfolio-content.json';
-
+const s3Url = process.env.NEXT_PUBLIC_S3_CONTENT_URL || 'https://portfolio-content-2025.s3.amazonaws.com/portfolio-content.json';
 const iconMap = {
   Server: <Server className="w-6 h-6" />,
   Globe: <Globe className="w-6 h-6" />,
-  Shield: <Shield className="w-6 h-6" />
+  Shield: <Shield className="w-6 h-6" />,
+};
+
+const projectColors = {
+  Server: {
+    gradient: "from-blue-500/20 via-indigo-500/10 to-purple-500/20",
+    accent: "text-blue-500",
+    border: "border-blue-500/30",
+    bg: "bg-blue-500/10"
+  },
+  Globe: {
+    gradient: "from-green-500/20 via-emerald-500/10 to-teal-500/20",
+    accent: "text-green-500", 
+    border: "border-green-500/30",
+    bg: "bg-green-500/10"
+  },
+  Shield: {
+    gradient: "from-orange-500/20 via-amber-500/10 to-yellow-500/20",
+    accent: "text-orange-500",
+    border: "border-orange-500/30", 
+    bg: "bg-orange-500/10"
+  },
 };
 
 const Projects = async () => {
   let projects: Project[] = [];
   try {
-    const res = await fetch(S3_PROJECTS_URL, { cache: 'no-store' });
+    const res = await fetch(s3Url, { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       projects = data.projects || [];
@@ -80,10 +100,18 @@ const Projects = async () => {
   }
 
   return (
-    <section id="projects" className="py-20">
-      <div className="container mx-auto px-4">
+    <section id="projects" className="py-20 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5"></div>
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+      
+      <div className="container mx-auto px-4 relative">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16 fade-in">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Code2 className="w-6 h-6 text-primary" />
+              <span className="text-primary font-medium tracking-wide uppercase text-sm">Portfolio</span>
+            </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 gradient-text">Featured Projects</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               A showcase of my technical expertise through real-world projects that demonstrate 
@@ -91,96 +119,139 @@ const Projects = async () => {
             </p>
           </div>
           
-          <div className="space-y-12">
-            {projects.map((project: Project, index: number) => (
-              <Card key={index} className="project-card group">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
-                  {/* Main Content */}
-                  <div className="lg:col-span-2 p-8">
-                    <CardHeader className="p-0 mb-6">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="p-3 bg-primary/10 rounded-xl text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                          {iconMap[project.icon] || <Server className="w-6 h-6" />}
-                        </div>
-                        <CardTitle className="text-2xl text-card-foreground group-hover:text-primary transition-colors duration-300">
-                          {project.title}
-                        </CardTitle>
-                      </div>
-                      <CardDescription className="text-base leading-relaxed text-muted-foreground">
-                        {project.description}
-                      </CardDescription>
-                    </CardHeader>
+          <div className="space-y-16">
+            {projects.map((project: Project, index: number) => {
+              const colors = projectColors[project.icon] || projectColors.Server;
+              const isEven = index % 2 === 0;
+              
+              return (
+                <div key={index} className={`fade-in group ${isEven ? '' : 'lg:flex-row-reverse'}`}>
+                  <Card className={`relative overflow-hidden border-2 ${colors.border} hover:border-opacity-60 bg-gradient-to-br ${colors.gradient} backdrop-blur-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500`}>
+                    {/* Decorative elements */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-white/10 to-transparent rounded-bl-full"></div>
+                    <div className={`absolute -top-2 -right-2 w-24 h-24 ${colors.bg} rounded-full blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-500`}></div>
                     
-                    <CardContent className="p-0 space-y-6">
-                      <div>
-                        <h4 className="font-semibold mb-3 text-sm uppercase tracking-wide text-muted-foreground">
-                          Technologies Used
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {project.technologies.map((tech: string, techIndex: number) => (
-                            <Badge key={techIndex} className="skill-badge text-xs px-3 py-1">
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
+                    <div className={`grid grid-cols-1 lg:grid-cols-5 gap-0 ${isEven ? '' : 'lg:grid-flow-col-dense'}`}>
+                      {/* Main Content */}
+                      <div className={`lg:col-span-3 p-8 ${isEven ? '' : 'lg:col-start-3'}`}>
+                        <CardHeader className="p-0 mb-6">
+                          <div className="flex items-center gap-4 mb-4">
+                            <div className={`relative p-4 ${colors.bg} rounded-2xl ${colors.accent} group-hover:scale-110 transition-all duration-300`}>
+                              {iconMap[project.icon] || <Server className="w-6 h-6" />}
+                              <div className={`absolute inset-0 ${colors.bg} rounded-2xl animate-pulse opacity-0 group-hover:opacity-30 transition-opacity duration-500`}></div>
+                            </div>
+                            <div>
+                              <div className="flex items-center gap-2 mb-2">
+                                <Star className={`w-4 h-4 ${colors.accent}`} />
+                                <span className={`text-xs font-medium ${colors.accent} uppercase tracking-wider`}>Featured Project</span>
+                              </div>
+                              <CardTitle className="text-2xl xl:text-3xl font-bold text-card-foreground group-hover:text-primary transition-colors duration-300">
+                                {project.title}
+                              </CardTitle>
+                            </div>
+                          </div>
+                          <CardDescription className="text-base leading-relaxed text-muted-foreground">
+                            {project.description}
+                          </CardDescription>
+                        </CardHeader>
+                        
+                        <CardContent className="p-0 space-y-6">
+                          <div>
+                            <h4 className="font-semibold mb-3 text-sm uppercase tracking-wide text-muted-foreground flex items-center gap-2">
+                              <Code2 className="w-4 h-4" />
+                              Technologies Used
+                            </h4>
+                            <div className="flex flex-wrap gap-2">
+                              {project.technologies.map((tech: string, techIndex: number) => (
+                                <Badge 
+                                  key={techIndex} 
+                                  className={`px-3 py-1 text-xs font-medium border-2 bg-card ${colors.border} ${colors.accent} hover:bg-opacity-20 hover:scale-105 transition-all duration-200`}
+                                >
+                                  {tech}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                          
+                          <div className="flex flex-wrap gap-3">
+                            <Button variant="default" size="sm" className={`${colors.bg} ${colors.accent} border ${colors.border} hover:bg-opacity-80`} asChild>
+                              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                                <Github className="w-4 h-4 mr-2" />
+                                View Code
+                              </a>
+                            </Button>
+                            {project.liveUrl && (
+                              <Button variant="outline" size="sm" className="hover:shadow-lg" asChild>
+                                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                                  <ExternalLink className="w-4 h-4 mr-2" />
+                                  Live Demo
+                                </a>
+                              </Button>
+                            )}
+                            {project.docsUrl && (
+                              <Button variant="outline" size="sm" className="hover:shadow-lg" asChild>
+                                <a href={project.docsUrl} target="_blank" rel="noopener noreferrer">
+                                  <ExternalLink className="w-4 h-4 mr-2" />
+                                  API Docs
+                                </a>
+                              </Button>
+                            )}
+                          </div>
+                        </CardContent>
                       </div>
                       
-                      <div className="flex flex-wrap gap-3">
-                        <Button variant="default" size="sm" className="modern-btn" asChild>
-                          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                            <Github className="w-4 h-4 mr-2" />
-                            View Code
-                          </a>
-                        </Button>
-                        {project.liveUrl && (
-                          <Button variant="outline" size="sm" asChild>
-                            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="w-4 h-4 mr-2" />
-                              Live Demo
-                            </a>
-                          </Button>
-                        )}
-                        {project.docsUrl && (
-                          <Button variant="outline" size="sm" asChild>
-                            <a href={project.docsUrl} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="w-4 h-4 mr-2" />
-                              API Docs
-                            </a>
-                          </Button>
-                        )}
+                      {/* Features Sidebar */}
+                      <div className={`lg:col-span-2 bg-card/50 backdrop-blur-sm border-l-4 ${colors.border} p-8 ${isEven ? '' : 'lg:col-start-1'}`}>
+                        <div className="sticky top-8">
+                          <h4 className="font-semibold mb-6 text-sm uppercase tracking-wide text-muted-foreground flex items-center gap-2">
+                            <Star className="w-4 h-4" />
+                            Key Features & Highlights
+                          </h4>
+                          <ul className="space-y-4">
+                            {project.features.map((feature: string, featureIndex: number) => (
+                              <li key={featureIndex} className="flex items-start gap-3 text-sm group/item">
+                                <div className={`w-2 h-2 ${colors.bg} ${colors.accent} rounded-full mt-2 flex-shrink-0 group-hover/item:scale-125 transition-transform duration-200`}></div>
+                                <span className="text-muted-foreground leading-relaxed group-hover/item:text-card-foreground transition-colors duration-200">
+                                  {feature}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       </div>
-                    </CardContent>
-                  </div>
-                  
-                  {/* Features Sidebar */}
-                  <div className="inner-card p-8 lg:border-l-0 border-t lg:border-t-0">
-                    <h4 className="font-semibold mb-4 text-sm uppercase tracking-wide text-muted-foreground">
-                      Key Features & Contributions
-                    </h4>
-                    <ul className="space-y-3">
-                      {project.features.map((feature: string, featureIndex: number) => (
-                        <li key={featureIndex} className="flex items-start gap-3 text-sm">
-                          <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-muted-foreground leading-relaxed">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                    </div>
+                  </Card>
                 </div>
-              </Card>
-            ))}
+              );
+            })}
           </div>
           
-          <div className="text-center mt-16 fade-in">
-            <p className="text-muted-foreground mb-6">
-              Want to see more of my work or discuss a potential collaboration?
-            </p>
-            <Button size="lg" className="modern-btn glow-effect" asChild>
-              <a href="https://github.com/momen124" target="_blank" rel="noopener noreferrer">
-                <Github className="w-5 h-5 mr-2" />
-                View All Projects on GitHub
-              </a>
-            </Button>
+          <div className="text-center mt-20 fade-in">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-2xl blur-xl"></div>
+              <Card className="relative bg-card/80 backdrop-blur-sm border-2 border-primary/30 p-8">
+                <div className="flex items-center justify-center gap-3 mb-6">
+                  <Github className="w-6 h-6 text-primary" />
+                  <h3 className="text-xl font-semibold gradient-text">Want to see more?</h3>
+                </div>
+                <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                  Explore my complete portfolio on GitHub or let's discuss your next project
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button size="lg" className="modern-btn glow-effect" asChild>
+                    <a href="https://github.com/momen124" target="_blank" rel="noopener noreferrer">
+                      <Github className="w-5 h-5 mr-2" />
+                      View All Projects
+                    </a>
+                  </Button>
+                  <Button variant="outline" size="lg" className="border-primary/30 hover:bg-primary/10" asChild>
+                    <a href="#contact">
+                      Let's Collaborate
+                    </a>
+                  </Button>
+                </div>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
