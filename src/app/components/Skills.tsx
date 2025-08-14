@@ -2,6 +2,7 @@ import { Badge } from './ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { SkillCategory } from '../types/portfolio';
 import { Server, Cloud, Globe, Code } from 'lucide-react';
+import { JSX } from 'react';
 
 const s3Url = process.env.NEXT_PUBLIC_S3_CONTENT_URL || 'https://portfolio-content-2025.s3.amazonaws.com/portfolio-content.json';
 

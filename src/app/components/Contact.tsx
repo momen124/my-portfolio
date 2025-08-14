@@ -8,16 +8,24 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import emailjs from '@emailjs/browser';
 
+// Add index signature to FormData to satisfy Record<string, unknown>
 interface FormData {
   firstName: string;
   lastName: string;
   email: string;
   subject: string;
   message: string;
+  [key: string]: string; // Index signature for EmailJS compatibility
 }
 
 const Contact = () => {
-  const [formData, setFormData] = useState<FormData>({ firstName: '', lastName: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState<FormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
   const [status, setStatus] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -30,10 +38,10 @@ const Contact = () => {
 
     try {
       await emailjs.send(
-        'YOUR_SERVICE_ID_HERE', // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID_HERE', // Replace with your EmailJS template ID
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID_HERE',
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID_HERE',
         formData,
-        'YOUR_PUBLIC_KEY_HERE' // Replace with your EmailJS public key
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY_HERE'
       );
       setStatus('Message sent successfully!');
       setFormData({ firstName: '', lastName: '', email: '', subject: '', message: '' });
@@ -44,14 +52,14 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    { icon: <Mail className="w-5 h-5" />, label: "Email", value: "momen.hosny@example.com", href: "mailto:momen.hosny@example.com" },
-    { icon: <Phone className="w-5 h-5" />, label: "Phone", value: "+20 123 456 7890", href: "tel:+201234567890" },
-    { icon: <MapPin className="w-5 h-5" />, label: "Location", value: "Available Worldwide (Remote)", href: null }
+    { icon: <Mail className="w-5 h-5" />, label: 'Email', value: 'momen.hosny@example.com', href: 'mailto:momen.hosny@example.com' },
+    { icon: <Phone className="w-5 h-5" />, label: 'Phone', value: '+20 123 456 7890', href: 'tel:+201234567890' },
+    { icon: <MapPin className="w-5 h-5" />, label: 'Location', value: 'Available Worldwide (Remote)', href: null },
   ];
 
   const socialLinks = [
-    { icon: <Github className="w-5 h-5" />, label: "GitHub", href: "https://github.com/momen124" },
-    { icon: <Linkedin className="w-5 h-5" />, label: "LinkedIn", href: "https://www.linkedin.com/in/momen-hosny" }
+    { icon: <Github className="w-5 h-5" />, label: 'GitHub', href: 'https://github.com/momen124' },
+    { icon: <Linkedin className="w-5 h-5" />, label: 'LinkedIn', href: 'https://www.linkedin.com/in/momen-hosny' },
   ];
 
   return (
@@ -60,9 +68,15 @@ const Contact = () => {
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
           <div>
             <h2 className="text-3xl font-bold mb-4">Get In Touch</h2>
-            <p className="text-muted-foreground mb-8">I'm always interested in discussing new opportunities, collaborating on projects, or simply connecting with fellow developers. Let's build something amazing together!</p>
+            <p className="text-muted-foreground mb-8">
+              I'm always interested in discussing new opportunities, collaborating on projects, or simply connecting with
+              fellow developers. Let's build something amazing together!
+            </p>
             <h3 className="text-2xl font-semibold mb-4">Let's Connect</h3>
-            <p className="text-muted-foreground mb-6">Whether you're looking for a backend developer, full-stack engineer, or DevOps specialist, I'd love to hear about your project and discuss how I can contribute to your team's success.</p>
+            <p className="text-muted-foreground mb-6">
+              Whether you're looking for a backend developer, full-stack engineer, or DevOps specialist, I'd love to hear
+              about your project and discuss how I can contribute to your team's success.
+            </p>
             <div className="space-y-4 mb-8">
               {contactInfo.map((contact, index) => (
                 <div key={index} className="flex items-center gap-3">
@@ -70,7 +84,9 @@ const Contact = () => {
                   <div>
                     <p className="font-medium">{contact.label}</p>
                     {contact.href ? (
-                      <a href={contact.href} className="text-primary hover:underline">{contact.value}</a>
+                      <a href={contact.href} className="text-primary hover:underline">
+                        {contact.value}
+                      </a>
                     ) : (
                       <p>{contact.value}</p>
                     )}

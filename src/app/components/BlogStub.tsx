@@ -1,19 +1,25 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { BlogPost } from '../types/portfolio';
 
-const s3Url = process.env.NEXT_PUBLIC_S3_CONTENT_URL
-
 const BlogStub = async () => {
   let mockPosts: BlogPost[] = [];
-  try {
-    const res = await fetch(s3Url, { cache: 'no-store' });
-    if (res.ok) {
-      const data = await res.json();
-      mockPosts = data.blog || [];
+  const s3Url = process.env.NEXT_PUBLIC_S3_CONTENT_URL;
+
+  // Type guard to ensure s3Url is defined
+  if (s3Url) {
+    try {
+      const res = await fetch(s3Url, { cache: 'no-store' });
+      if (res.ok) {
+        const data = await res.json();
+        mockPosts = data.blog || [];
+      }
+    } catch (error) {
+      console.error('Failed to fetch blog posts:', error);
     }
-  } catch (error) {
-    console.error('Failed to fetch blog posts:', error);
-    // Fallback to hard-coded
+  }
+
+  // Fallback to hard-coded posts if fetch fails or s3Url is undefined
+  if (mockPosts.length === 0) {
     mockPosts = [
       { title: 'Scaling Node.js APIs in 2025', excerpt: 'Strategies for handling high traffic with Node.js and AWS.', date: 'August 2025' },
       { title: 'DevOps with Terraform', excerpt: 'Automating infrastructure for faster deployments.', date: 'July 2025' },
