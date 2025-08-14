@@ -3,23 +3,16 @@ import { BlogPost } from '../types/portfolio';
 
 const BlogStub = async () => {
   let mockPosts: BlogPost[] = [];
-  const s3Url = process.env.NEXT_PUBLIC_S3_CONTENT_URL;
+  const s3Url = process.env.NEXT_PUBLIC_S3_CONTENT_URL || 'https://portfolio-content-2025.s3.amazonaws.com/portfolio-content.json';
 
-  // Type guard to ensure s3Url is defined
-  if (s3Url) {
-    try {
-      const res = await fetch(s3Url, { cache: 'no-store' });
-      if (res.ok) {
-        const data = await res.json();
-        mockPosts = data.blog || [];
-      }
-    } catch (error) {
-      console.error('Failed to fetch blog posts:', error);
+  try {
+    const res = await fetch(s3Url, { cache: 'force-cache', next: { revalidate: 3600 } });
+    if (res.ok) {
+      const data = await res.json();
+      mockPosts = data.blog || [];
     }
-  }
-
-  // Fallback to hard-coded posts if fetch fails or s3Url is undefined
-  if (mockPosts.length === 0) {
+  } catch (error) {
+    console.error('Failed to fetch blog posts:', error);
     mockPosts = [
       { title: 'Scaling Node.js APIs in 2025', excerpt: 'Strategies for handling high traffic with Node.js and AWS.', date: 'August 2025' },
       { title: 'DevOps with Terraform', excerpt: 'Automating infrastructure for faster deployments.', date: 'July 2025' },
